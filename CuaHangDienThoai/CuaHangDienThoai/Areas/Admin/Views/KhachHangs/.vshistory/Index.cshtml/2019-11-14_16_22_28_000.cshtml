@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CuaHangDienThoai.Models.KhachHang>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<h2 style="text-align:center; background-color:#4267B2; color:#FFFFFF" class="text-info">Danh sách khách hàng</h2>
+<br />
+<div>
+    <table class="table table-striped border" style="text-align:center">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.TenKH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.SoDienThoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.GioiTinh)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(m => item.TenKH)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.SoDienThoai)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.GioiTinh)
+        </td>
+        <td style="width:150px">
+            <div class="btn-group" role="group">
+                <a type="button" class="btn btn-success" asp-action="DetailsKhachHang" asp-route-MaKH="@item.MaKH">
+                    <i class="far fa-list-alt"></i>
+                </a>
+            </div>
+        </td>
+    </tr>
+        }
+    </table>
+</div>
+
+
+

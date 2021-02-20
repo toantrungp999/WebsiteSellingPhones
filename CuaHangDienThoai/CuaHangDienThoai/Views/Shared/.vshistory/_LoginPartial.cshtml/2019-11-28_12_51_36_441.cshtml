@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Http
+@using CuaHangDienThoai.Common
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "_LoginPartial";
+}
+
+@if (HttpContextAccessor.HttpContext.Session.GetString(CommonAdmin.USER_SESSION) != null)
+{
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <button type="submit" class="btn btn-link navbar-btn navbar-link nav-link">Logout</button>
+            </li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-collapse justify-content-end navbar-right">
+
+        <li class="nav-item"><a asp-area="Identity" class="nav-link" asp-controller="Login" asp-action="Index">Login</a></li>
+    </ul>
+}
+

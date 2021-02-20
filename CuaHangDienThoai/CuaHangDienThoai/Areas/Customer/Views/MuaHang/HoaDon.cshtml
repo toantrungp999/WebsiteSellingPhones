@@ -1,0 +1,74 @@
+﻿@model CuaHangDienThoai.Models.View.HoaDonViewModel
+@{
+    ViewData["Title"] = "Hóa đơn";
+}
+
+<div class="form-group d-flex justify-content-center">
+    <h3 class="text-info">Hóa đơn</h3>
+</div>
+<form method="get">
+    <div class="row col-12 pb-2">
+        <div class="row col-4">
+            <div>
+                <label class="form-text pr-2">Mã hóa đơn</label>
+            </div>
+            <div class="col-6">
+                @Html.Editor("searchMa", new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success" asp-action="DonHang" asp-controller="MuaHang" onclick="@Model.PagingInfo.CurrentPage=1"><i class="fas fa-search"></i>Tìm kiếm</button>
+        </div>
+    </div>
+</form>
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                <label class="form-text">Mã hóa đơn</label>
+            </th>
+            <th>
+                <label class="form-text">Mã đơn hàng</label>
+            </th>
+            <th>
+                <label class="form-text">Tổng thanh toán</label>
+            </th>
+            <th>
+                <label class="form-text">Ngày lặp đơn hàng</label>
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.ListHoaDon)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.MaHD)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.MaDH)
+                </td>
+                <td>
+                    <label class="form-text vnd">@item.TongThanhToan</label>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.NgayLapHD)
+                </td>
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a type="button" class="btn btn-success" asp-action="ChiTietHoaDon" asp-route-MaHD="@item.MaHD">
+                            <i class="far fa-list-alt"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="form-group d-flex justify-content-center">
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+         page-class="btn border" page-class-normal="btn btn-default active"
+         page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+</div>
+

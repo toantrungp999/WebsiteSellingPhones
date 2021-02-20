@@ -1,0 +1,78 @@
+﻿@model CuaHangDienThoai.Models.TaiKhoanAdmin
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<h4 class="text-info" style="text-align:center">Quản lý tài khoản Admin</h4>
+<div class="p-4 rounded">
+    <form method="post" asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="User" />
+        <div class="form-group row">
+            <div class="col-2"></div>
+            <div class="col-2"> <label asp-for="Name"></label></div>
+            <div class="col-5">
+                <input asp-for="Name" maxlength="20" class="form-control" />
+
+            </div>
+
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2"></div>
+            <div class="col-2">
+                <label asp-for="PhoneNumber"></label>
+            </div>
+            <div class="col-5">
+                <input type="number" asp-for="PhoneNumber" maxlength="20" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2"></div>
+            <div class="col-2">
+                <label asp-for="Role"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="Role">
+                    <option value="Admin">Admin</option>
+                    <option value="Super Admin">Super Admin</option>
+                </select>
+
+            </div>
+            <span asp-validation-for="Role" class="text-danger"></span>
+
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2"></div>
+            <div class="col-2">
+                <label asp-for="TrangThai"></label>
+            </div>
+            <div class="col-5">
+                <input type="checkbox" asp-for="TrangThai" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2"></div>
+            <div class="col-2">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2"></div>
+            <div class="col-2">
+                <a asp-action="EditMatKhau" asp-route-User="@Model.User" class="btn btn-success">Chỉnh sửa mật khẩu</a>
+            </div>
+            <div class="col-2">
+                <a asp-action="Index" style="margin-left:20px">Trở về</a>
+            </div>
+
+        </div>
+    </form>
+</div>
+

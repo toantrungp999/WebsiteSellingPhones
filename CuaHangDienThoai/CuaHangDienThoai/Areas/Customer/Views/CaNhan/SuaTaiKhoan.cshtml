@@ -1,0 +1,67 @@
+﻿@model CuaHangDienThoai.Models.View.SuaTaiKhoanViewModel;
+@{
+    ViewData["Title"] = "Sửa tài khoản";
+}
+
+@if (TempData["SuaTaiKhoan"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["SuaTaiKhoan"]</strong>
+    </div>
+    TempData.Remove("SuaTaiKhoan");
+}
+
+<h2 class="text-info" style="padding-left: 400px">Đổi mật khẩu</h2>
+<form method="post" oninput='confpass.setCustomValidity(MatKhauMoi.value != confpass.value ? "Mật khẩu không khớp":"")'>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-5">
+            <div class="p-4 border rounded">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.TenTaiKhoan"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="@Model.TenTaiKhoan" class="form-control" required readonly />
+                    </div>
+                    <span asp-validation-for="@Model.TenTaiKhoan" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.MatKhau"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" asp-for="@Model.MatKhau" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="@Model.MatKhau" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.MatKhauMoi"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" asp-for="@Model.MatKhauMoi" minlength="6" maxlength="20"  name="MatKhauMoi" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="@Model.MatKhauMoi" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label>Xác nhận mật khẩu   </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" required name="confpass" class="form-control" />
+                    </div>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <input class="btn btn-success" type="submit" value="Lưu thay đổi" asp-action="SuaTaiKhoan" />
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <a class="btn btn-primary" asp-action="ThongTin"><i class="fas fa-search"></i>Trở về</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

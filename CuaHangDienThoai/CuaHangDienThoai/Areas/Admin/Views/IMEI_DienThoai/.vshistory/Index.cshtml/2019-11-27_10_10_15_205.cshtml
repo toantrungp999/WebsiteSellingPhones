@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CuaHangDienThoai.Models.ChiTietHoaDon>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sách IMEI thuộc các hóa đơn</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaHD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaDT)
+            </th>
+            <th>
+                IMEI
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaHD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaDT)
+            </td>
+            <td>
+                @foreach (var im in item.IMEI_DienThoais.Where(im=>im.MaHD==item.MaHD))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem=>im.IMEI)
+                    </td>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaHD">Edit</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

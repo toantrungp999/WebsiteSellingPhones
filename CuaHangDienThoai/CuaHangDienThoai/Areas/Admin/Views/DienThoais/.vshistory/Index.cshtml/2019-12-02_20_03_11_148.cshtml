@@ -1,0 +1,117 @@
+﻿@model IEnumerable<CuaHangDienThoai.Models.DienThoai>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<form method="get">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Danh sách điện thoại</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Create" class="btn-btn-info"><i class="fas fa-plus"></i>&nbsp;Thêm điện thoại</a>
+        </div>
+    </div>
+    <br />
+    <div>
+        <div style="height:150px; background-color:aliceblue" class="container">
+            @* We will add search criteria *@
+            <div class="col-12">
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-2">
+                        Tên mẫu
+                    </div>
+                    <div class="col-3">
+                        @Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-2">
+                       Màu
+                    </div>
+                    <div class="col-3">
+                        @Html.Editor("searchColor", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                </div>
+     
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" name="submit" value="Search" class="btn btn-primary form-control">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(m => m.ModelDienThoai.TenModel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Mau)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Gia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.GiamGia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.SoLuong)
+                </th>
+
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.ModelDienThoai.TenModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Mau)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(m => item.Gia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.GiamGia)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(m => item.SoLuong)
+                    </td>
+                    <td style="width:150px">
+                        <div class="btn-group" role="group">
+                            <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-MaDT="@item.MaDT">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a type="button" class="btn btn-success" asp-action="Details" asp-route-MaDT="@item.MaDT">
+                                <i class="far fa-list-alt"></i>
+                            </a>
+                            <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-MaDT="@item.MaDT">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</form>

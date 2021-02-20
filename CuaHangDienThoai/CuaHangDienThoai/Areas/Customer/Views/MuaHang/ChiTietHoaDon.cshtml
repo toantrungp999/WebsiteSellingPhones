@@ -1,0 +1,142 @@
+﻿@model CuaHangDienThoai.Models.View.ChiTietHoaDonViewModel
+@{
+    ViewData["Title"] = "Chi tiết hóa đơn";
+}
+
+    <div class="form-group d-flex justify-content-center">
+        <h3 class="text-info">Chi tiết hóa đơn</h3>
+    </div>
+
+
+    <form>
+        <input type="hidden" asp-for="HoaDon.MaHD" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="p-4 border rounded row">
+            <div class="col-12">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="HoaDon.MaHD"></label>
+                        </div>
+                        <div class="col-4">
+                            <input asp-for="HoaDon.MaDH" readonly class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="HoaDon.MaDH"></label>
+                        </div>
+                        <div class="col-4">
+                            <input asp-for="HoaDon.MaDH" readonly class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="HoaDon.TenKH"></label>
+                        </div>
+                        <div class="col-4">
+                            <input asp-for="HoaDon.TenKH" readonly class="form-control" />
+                        </div>
+                        <div class="col-2">
+                            <label asp-for="HoaDon.SoDT"></label>
+                        </div>
+                        <div class="col-4">
+                            <input asp-for="HoaDon.SoDT" readonly class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label>Địa Chỉ</label>
+                        </div>
+                        <div class="col-10">
+                            <input value="188 Lê Văn Việt, quận 9" readonly class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="HoaDon.TongThanhToan"></label>
+                        </div>
+                        <div class="col-4">
+                            <input asp-for="HoaDon.TongThanhToan" readonly class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="HoaDon.NgayLapHD"></label>
+                        </div>
+                        <div class="col-4">
+                            <input asp-for="HoaDon.NgayLapHD" readonly class="form-control" />
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <table class="table table-striped border">
+                <tr class="table-info">
+                    <th>
+                        Mã điện thoại
+                    </th>
+                    <th>
+                        Tên điện thoại
+                    </th>
+                    <th>
+                        Màu
+                    </th>
+                    <th>
+                        Ram-Rom
+                    </th>
+                    <th>
+                        Đơn giá
+                    </th>
+                    <th>
+                        Số lượng
+                    </th>
+                    <th>
+                        Tổng giá
+                    </th>
+                    <th>
+                        IMEI
+                    </th>
+                </tr>
+                @foreach (var item in Model.ChiTietHoaDons)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.MaDT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.DienThoai.ModelDienThoai.TenModel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.DienThoai.Mau)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.DienThoai.ModelDienThoai.Ram)-@Html.DisplayFor(m => item.DienThoai.ModelDienThoai.Rom)
+                        </td>
+                        <td>
+                            <label class="form-text">@(item.TongGia/item.SoLuong)</label>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.SoLuong)
+                        </td>
+                        <td>
+                            <label class="form-text vnd">@item.TongGia</label>
+                        </td>
+                        <td>
+                            @foreach (var imei in item.IMEI_DienThoais)
+                            {
+                                <label>@imei.IMEI <br /></label>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+            <br />
+            <div class="form-group">
+                <a asp-action="HoaDon" class="btn btn-success">Trở về</a>
+            </div>
+        </div>
+    </form>
+

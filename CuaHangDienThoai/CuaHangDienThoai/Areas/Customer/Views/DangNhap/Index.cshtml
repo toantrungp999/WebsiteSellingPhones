@@ -1,0 +1,45 @@
+﻿@model CuaHangDienThoai.Models.TaiKhoan
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+@if (TempData["DangKy"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["DangKy"]</strong>
+    </div>
+    TempData.Remove("DangKy");
+}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="login-form col-4" style="margin-top:100px;">
+        <form method="post">
+            <h2 class="text-center text-info">Đăng nhập</h2>
+            <div class="form-group">
+                <input asp-for="TenTK" type="text" class="form-control" placeholder="Tên tài khoản" required="required">
+            </div>
+            <div class="form-group">
+                <input asp-for="MatKhau" type="password" class="form-control" placeholder="Mật khẩu" required="required">
+            </div>
+            @if (TempData["DangNhap"] != null)
+            {
+                <div class="text-center form-group">
+                    <span class="text-center" style="color:red">@TempData["DangNhap"]</span>
+                </div>
+
+                TempData.Remove("DangNhap");
+            }
+            <div class="form-group">
+                <button type="submit" asp-action="DangNhap" class="btn btn-primary btn-block">Đăng nhập</button>
+            </div>
+        </form>
+        <div class="form-group">
+            <p class="text-center"> Bạn chưa có tài khoản?<a asp-action="DangKy"> Đăng ký ngay!</a></p>
+        </div>
+        <div class="form-group">
+            <p class="text-center"> <a class="text-primary" asp-area="Customer" asp-controller="ForgotPassword" asp-action="Index">Quên mật khẩu?</a></p>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,138 @@
+﻿@model CuaHangDienThoai.Models.View.DonHangViewChiTiet
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+}
+<div class="form-group d-flex justify-content-center">
+    <h3 class="text-info">Chi tiết đơn hàng</h3>
+</div>
+    <form>
+        <input type="hidden" asp-for="DonHangs.MaDH" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="border rounded">
+            <div class="form-group row">
+                <div class="col-2 pt-2">
+                    <label class="form-text ml-3" asp-for="DonHangs.MaDH"></label>
+                </div>
+                <div class="col-2 pt-2">
+                    <input asp-for="DonHangs.MaDH" readonly class="form-control" />
+                </div>
+                <div class="col-3"></div>
+                <div class="col-2 pt-2">
+                    <label class="form-text ml-4" asp-for="DonHangs.TrangThai"></label>
+                </div>
+                <div class="col-3 pt-2">
+                    @if (Model.DonHangs.TrangThai == "Chưa duyệt")
+                    {
+                        <label class="form-text text-primary">@Model.DonHangs.TrangThai</label>
+                    }
+                    @if (Model.DonHangs.TrangThai == "Đã duyệt")
+                    {
+                        <label class="form-text text-success">@Model.DonHangs.TrangThai</label>
+                    }
+                    @if (Model.DonHangs.TrangThai == "Đã hủy")
+                    {
+                        <label class="form-text text-danger">@Model.DonHangs.TrangThai</label>
+                    }
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label class="form-text ml-3" asp-for="DonHangs.KhachHang.TenKH"></label>
+                </div>
+                <div class="col-4">
+                    <input asp-for="DonHangs.KhachHang.TenKH" readonly class="form-control" />
+                </div>
+                <div class="col-1"></div>
+                <div class="col-2">
+                    <label class="form-text ml-4" asp-for="DonHangs.KhachHang.SoDienThoai"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="DonHangs.KhachHang.SoDienThoai" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label class="form-text ml-3" asp-for="DonHangs.KhachHang.DiaChi"></label>
+                </div>
+                <div class="col-7">
+                    <input asp-for="DonHangs.KhachHang.DiaChi" readonly class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 row pt-3">
+            <div class="h6 mt-1 col-6">
+                <h4>Chi tiết</h4>
+            </div>
+            @if (Model.DonHangs.TrangThai == "Chưa duyệt")
+            {
+                <div class="text-right col-6">
+                    <a class="btn btn-danger" asp-action="HuyDonHang" asp-controller="MuaHang" asp-route-MaDH="@Model.DonHangs.MaDH">Hủy đơn hàng</a>
+                </div>
+            }
+
+        </div>
+
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    Mã điện thoại
+                </th>
+                <th>
+                    Tên điện thoại
+                </th>
+                <th>
+                    Màu
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Giá gốc
+                </th>
+                <th>
+                    Giảm giá
+                </th>
+                <th>
+                    Đơn giá
+                </th>
+                <th>
+                    Tổng giá
+                </th>
+            </tr>
+            @foreach (var item in Model.ChiTietDonHangs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.MaDT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DienThoai.ModelDienThoai.TenModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DienThoai.Mau)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.SoLuong)
+                    </td>
+                    <td>
+                        <label class="form-text vnd">@item.DonGia</label>
+                    </td>
+                    <td>
+                        <label class="form-text vnd">@item.GiamGia</label>
+                    </td>
+                    <td>
+                        <label class="form-text vnd">@(item.DonGia - item.GiamGia)</label>
+                    </td>
+                    <td>
+                        <label class="form-text vnd">@item.TongGia</label>
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        <div class="form-group">
+            <a asp-action="DonHang" class="btn btn-success">Trở về</a>
+        </div>
+    </form>
+

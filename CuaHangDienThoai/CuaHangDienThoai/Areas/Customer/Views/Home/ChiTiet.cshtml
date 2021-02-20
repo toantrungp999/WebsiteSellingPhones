@@ -1,0 +1,188 @@
+﻿@model CuaHangDienThoai.Models.View.ChiTietViewModel
+@using CuaHangDienThoai.Extensions
+@using CuaHangDienThoai.Areas.Customer.Identity
+@using System.Globalization
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Chi tiết";
+}
+
+@if (TempData["DangNhap"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["DangNhap"]</strong>
+    </div>
+    TempData.Remove("DangNhap");
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 border rounded row">
+        <div class="col-4">
+            <img src="@Model.ModelDT.Hinh" id="hinh" width="100%" style="border-radius: 5px; border: 1px solid #bbb9b9;width:300px;height:300px;" alt="Lỗi" />
+            <ul class="list-group flex-sm-row">
+                @foreach (var item in Model.DanhSachDT)
+                {
+                    <li class="list-group-item py-1 px-1 border rounded mt-1"><img src="@item.Hinh" id="@item.MaDT" class="listHinh" style="width:60px;height:60px; padding: 0 0 0 0;" onclick="DoiHinh(this)" /></li>
+                }
+
+            </ul>
+        </div>
+
+        <div class="col-4">
+            <div class="form-group row">
+                <div class="col-12">
+                    <strong class="text-info"> @Model.ModelDT.TenModel</strong>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-12">
+                    <label> Màu sắc</label>
+                </div>
+                <div class="col-12">
+                    @foreach (var item in Model.DanhSachDT)
+                    {
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-6">
+                                <input asp-for="MaDT" type="radio" value="@item.MaDT" onclick="document.getElementById('giagoc').innerHTML =@item.Gia;
+                                    document.getElementById('gia').innerHTML = @item.Gia - @item.GiamGia;
+    DoiHinhTheoMau(this);
+    A();" required checked class="btn" id="radio1" />@item.Mau
+                                </div>
+                                <label id="@item.MaDT" style="padding-left: 20px">Kho @item.SoLuong</label><br />
+                            </div>
+                        }
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="@Model.SoLuong"></label>
+                </div>
+                <div class="col-4">
+                    <input type="number" asp-for="SoLuong" class="form-control" min="1" />
+                </div>
+                <span asp-validation-for="SoLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="col-9 text-right">
+                    <label class="form-text ">Giá niêm yết:<del id="giagoc" class="form-text vnd">0</del></label>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-9 text-right">
+                    <h3 class="text-danger vnd" style="font-weight:bold" id="gia">0</h3>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                @if (@HttpContextAccessor.HttpContext.Session.GetObject<DangNhap>("DangNhap") != null)
+                {
+                    <input type="submit" class="btn btn-danger" value="Thêm vào giỏ hàng" onclick="canhBao(event);" />
+                }
+                else
+                {
+                    <input type="submit" class="btn btn-danger" value="Thêm vào giỏ hàng"
+                           onclick="alert('Bạn chưa đăng nhập\nHãy đăng nhập để mua sản phẩm')" />
+                }
+            </div>
+
+        </div>
+        <div class="col-4 border rounded">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Thông tin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tên điện thoại </td>
+                        <td>@Model.ModelDT.TenModel</td>
+                    </tr>
+                    <tr>
+                        <td> Hãng </td>
+                        <td> @Model.ModelDT.Hang.TenHang</td>
+                    </tr>
+                    <tr>
+                        <td> Ram </td>
+                        <td> @Model.ModelDT.Ram</td>
+                    </tr>
+                    <tr>
+                        <td> Rom </td>
+                        <td> @Model.ModelDT.Rom</td>
+                    </tr>
+                    <tr>
+                        <td> CPU </td>
+                        <td> @Model.ModelDT.Chip</td>
+                    </tr>
+                    <tr>
+                        <td> Camera </td>
+                        <td> @Model.ModelDT.Camera</td>
+                    </tr>
+                    <tr>
+                        <td> Man hình </td>
+                        <td> @Model.ModelDT.ManHinh</td>
+                    </tr>
+                    <tr>
+                        <td> Pin </td>
+                        <td> @Model.ModelDT.Pin</td>
+                    </tr>
+                    <tr>
+                        <td> Bảo hành </td>
+                        <td> 12 tháng</td>
+                    </tr>
+                    <tr>
+                        <td> Ngày ra mắt </td>
+                        <td> @Model.ModelDT.NgayRaMat.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</form>
+
+<script>
+    document.getElementById("radio1").click();
+    document.getElementById("hinh1").click();
+</script>
+
+
+
+
+
+
+
+
+
+
+@section Scripts{
+    @*<script>
+            function canhBao(e) {
+                var maDT = document.querySelector('input[name="MaDT"]:checked').value;
+                var kho = document.getElementById(maDT).innerHTML;
+                var soluong = document.getElementById("SoLuong").value;
+                if (soluong > kho) {
+                    e.preventDefault();
+                    document.getElementById("quaSoLuong").style.display = "block";
+                    setTimeout(function() { document.getElementById("quaSoLuong").style.display = "none"; }, 3000);
+                }
+            }
+        </script>*@
+    <script>
+        function DoiHinh(ele) {
+            document.getElementById("hinh").src = ele.src;
+        }
+        function DoiHinhTheoMau(ele) {
+            document.getElementById("hinh").src = document.getElementById(ele.value).src;
+        }
+    </script>
+
+
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+
+

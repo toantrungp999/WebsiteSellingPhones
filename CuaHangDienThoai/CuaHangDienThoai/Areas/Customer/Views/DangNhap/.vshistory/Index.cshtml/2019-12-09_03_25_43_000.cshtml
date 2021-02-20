@@ -1,0 +1,32 @@
+﻿@model CuaHangDienThoai.Models.TaiKhoan
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="login-form col-4" style="margin-top:100px;">
+            <form method="post">
+                <h2 class="text-center text-info">Đăng nhập</h2>
+                <div class="form-group">
+                    <input asp-for="TenTK" type="text" class="form-control" placeholder="Username" required="required">
+                </div>
+                <div class="form-group">
+                    <input asp-for="MatKhau" type="password" class="form-control" placeholder="Password" required="required">
+                </div>
+                @if (TempData["DangNhap"] != null)
+                {
+                    <div class="text-center form-group">
+                        <span class="text-center" style="color:red">@TempData["DangNhap"]</span>
+                    </div>
+
+                    TempData.Remove("DangNhap");
+                }
+                <div class="form-group">
+                    <button type="submit" asp-action="DangNhap" class="btn btn-primary btn-block">Đăng nhập</button>
+                </div>
+            </form>
+            <p class="text-center"> Bạn chưa có tài khoản?<a asp-action="DangKy"> Đăng ký ngay</a></p>
+        </div>
+    </div>
+
+

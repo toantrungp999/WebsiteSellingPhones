@@ -1,0 +1,105 @@
+﻿@model CuaHangDienThoai.Models.View.TrangChuViewModel
+@using CuaHangDienThoai.Extensions
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+@if (TempData["DangNhap"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["DangNhap"]</strong>
+    </div>
+    TempData.Remove("DangNhap");
+}
+<form method="get" class="border rounded">
+    <div class="row pl-2 pt-2">
+        <div>
+            <label class="form-text pl-5 pr-2">Hãng </label>
+        </div>
+        <div>
+            @Html.DropDownList("searchHang", Model.DanhSachHang.ToSelectListHang(0), "Tất cả", new { @class = "form-control" })
+        </div>
+
+        <div class="col-5 row ml-5">
+            <div>
+                <label class="form-text">Giá từ</label>
+            </div>
+            <div class="col-5">
+                @Html.Editor("searchBatDau", new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+            </div>
+            <div>
+                <label class="form-text">đến</label>
+            </div>
+            <div class="col-5">
+                @Html.Editor("searchKetThuc", new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+            </div>
+        </div>
+
+        <div>
+            <label class="form-text pl-5 pr-2">Sắp xếp</label>
+        </div>
+        <div>
+            @Html.DropDownList("searchSapXep", CuaHangDienThoai.Extensions.IEnumerableExtensions.ListSapXep(), "Không", new { @class = "form-control" })
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary ml-3 pl-4 pr-4" asp-action="Index" asp-controller="Home" onclick="@Model.PagingInfo.CurrentPage=1"><i class="fas fa-fill"></i>Lọc</button>
+        </div>
+    </div>
+    <div class="row pt-2 pb-2">
+        <div class="col-3"></div>
+        <div>
+            <label class="form-text ml-5 mr-1">Tìm kiếm</label>
+        </div>
+        <div class="col-3">
+            @Html.Editor("searchTen", new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary ml-3" asp-action="Index" asp-controller="Home" value="Tìm kiếm" onclick="@Model.PagingInfo.CurrentPage=1"><i class="fas fa-search"></i>Tìm kiếm</button>
+        </div>
+    </div>
+</form>
+
+<div class="row pt-2">
+    @foreach (var item in Model.DanhSachModel)
+    {
+        <div class="col-3">
+            <div class="card mb-4 border rounded">
+                <img class="card-img-top" style="height:250px; width:250px;" src="@item.Hinh" alt="Card Image" />
+                <div class="card-body">
+                    <div class="row align-items-center justify-content-center" style="height:45px;">
+                        <h6 style="color: darkred; line-height:22px;" >@item.TenModel</h6>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                        @if (item.DienThoais.Max(dt => dt.SoLuong) != 0)
+                        {
+                            <div class="col-6 pb-2">
+                                <del class="vnd">@item.DienThoais.Max(d => d.Gia)</del>
+                            </div>
+                            <div class="col-6">
+                                <label style="font-size:18px; color: #a51313"> <b class="vnd mr-4">@item.DienThoais.Min(d => d.Gia - d.GiamGia)</b></label>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="col-6">
+                                <del></del>
+                            </div>
+                            <div class="col-6">
+                                <label style="font-size:20px; color: #a51313"> <b>Hết hàng</b></label>
+                            </div>
+                        }
+                        <a asp-area="Customer" asp-action="ChiTiet" asp-controller="Home" asp-route-MaModel="@item.MaModel" class="btn btn-outline-danger">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="form-group d-flex justify-content-center">
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+         page-class="btn border" page-class-normal="btn btn-default active"
+         page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+</div>

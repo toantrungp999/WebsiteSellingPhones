@@ -1,0 +1,80 @@
+﻿@model CuaHangDienThoai.Models.View.CTHoaDonViewIMEI
+
+@{
+    ViewData["Title"] = "Chỉnh sửa";
+}
+@{
+    var message = TempData["message"];
+}
+<h1 class="text-info" style="text-align:center">Chi tiết</h1>
+<form method="post" >
+    <table class="table">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(model => model.chiTietHoaDon.MaHD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.chiTietHoaDon.MaDT)
+            </th>
+            <th>
+                IMEI
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                <lable>@Model.chiTietHoaDon.MaHD</lable>
+            </td>
+            <td>
+                <lable>@Model.chiTietHoaDon.MaDT</lable>
+            </td>
+            <td>
+                @for (int i = 0; i < Model.chiTietHoaDon.SoLuong; i++)
+                {
+                    var name = Model.chiTietHoaDon.MaDT.ToString() + i.ToString();
+                    if (message != null)
+                    {
+                        var value = TempData[name];
+                        if (value.Equals("Trùng IMEI vui lòng thử lại"))
+                        {
+                            <label class="form-group text-danger">@value</label>
+                            <br />
+                            <input name=@name maxlength="50" class="form-group form-control" required style="width:250px;"/>
+                            <br />
+                        }
+                        else
+                        {
+                            <input name=@name maxlength="50" class="form-group form-control" value=@value required style="width:250px;" /><br />
+                        }
+                    }
+                    else
+                    {
+                        var value = TempData[name];
+                        if (value != null)
+                        {
+                            <input name=@name  maxlength="50" class="form-group form-control" value=@value required style="width:250px;"/><br />
+                        }
+                        else
+                        {
+                            <input name=@name  maxlength="50" class="form-group form-control" required style="width:250px;" /><br />
+                        }
+
+                    }
+                }
+            </td>
+
+
+        </tr>
+    </table>
+    @{var id = Model.chiTietHoaDon.MaHD.ToString() + Model.chiTietHoaDon.MaDT.ToString();
+        TempData.Clear();}
+<div class="col-12 row">
+    <div class="col-1">
+        <input type="submit" class="btn btn-primary form-control" asp-action="Edit" asp-route-id=@id value="Lưu" />
+    </div>
+    <div class="col-2">
+        <a class="btn btn-success" asp-action="Index">Trở lại</a>
+    </div>
+</div>
+    
+</form>

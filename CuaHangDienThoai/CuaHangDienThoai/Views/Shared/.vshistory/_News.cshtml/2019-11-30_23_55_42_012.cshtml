@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Http
+@using CuaHangDienThoai.Common
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "_News";
+}
+@if (HttpContextAccessor.HttpContext.Session.GetString(CommonAdmin.USER_SESSION) != null)
+{
+    <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bell fa-fw"></i>
+            <!-- Counter - Alerts -->
+            <span class="badge badge-danger badge-counter">@TempData["News"]</span>
+        </a>
+        <!-- Dropdown - Alerts -->
+        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+        </div>
+    </li>
+
+    <!-- Nav Item - Messages -->
+    <li class="nav-item dropdown no-arrow mx-1">
+        <div class="topbar-divider d-none d-sm-block"></div>
+        <!-- Nav Item - User Information -->
+    </li>
+}
+
+

@@ -1,0 +1,136 @@
+﻿@model CuaHangDienThoai.Models.View.ModelDienThoaisPaging
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2 class="text-info" style="text-align:center">Danh sách mẫu điện thoại</h2>
+<br />
+<a asp-action="Create" class="btn-btn-info"><i class="fas fa-plus"></i>&nbsp;Thêm mới mẫu điện thoại</a>
+<form method="get">
+    <div>
+        <div style="height:150px; background-color:aliceblue" class="container">
+            <div class="col-12">
+                <div class="row" style="padding-top:10px;">
+                    <label>Tìm kiếm</label>
+                </div>
+                    <div class="row" style="padding-top:10px;">
+                        <div class="col-2">
+                            Tên mẫu
+                        </div>
+                        <div class="col-3">
+                            @Html.Editor("searchName", new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-2">
+                            Tên hãng
+                        </div>
+                        <div class="col-3">
+                            @Html.Editor("searchHang", new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+
+                    </div>
+                    <div class="row" style="padding-top:10px;">
+                        <div class="col-2">
+                            Ram
+                        </div>
+                        <div class="col-3">
+                            @Html.Editor("searchRam", new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-2">
+                            Rom
+                        </div>
+                        <div class="col-3">
+                            @Html.Editor("searchRom", new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+
+                    </div>
+                    <div class="row" style="padding-top:10px;">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-3">
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-2">
+                        </div>
+                        <div class="col-3">
+                            <button type="submit" name="submit" value="Search" class="btn btn-primary form-control">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(m => m.ModelDienThoais.FirstOrDefault().TenModel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ModelDienThoais.FirstOrDefault().Hang)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ModelDienThoais.FirstOrDefault().Ram)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ModelDienThoais.FirstOrDefault().ManHinh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ModelDienThoais.FirstOrDefault().Camera)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ModelDienThoais.FirstOrDefault().Chip)
+                </th>
+
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.ModelDienThoais)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.TenModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Hang.TenHang)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Ram)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(m => item.ManHinh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Camera)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(m => item.Chip)
+                    </td>
+                    <td style="width:150px">
+                        <div class="btn-group" role="group">
+                            <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-MaModel="@item.MaModel">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a type="button" class="btn btn-success" asp-action="Details" asp-route-MaModel="@item.MaModel">
+                                <i class="far fa-list-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+        <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+             page-class="btn border" page-class-normal="btn btn-default active"
+             page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+    </div>
+</form>

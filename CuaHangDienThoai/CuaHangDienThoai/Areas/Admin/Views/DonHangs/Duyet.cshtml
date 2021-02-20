@@ -1,0 +1,159 @@
+﻿@model CuaHangDienThoai.Models.View.DonHangViewChiTiet
+
+@{
+    ViewData["Title"] = "Duyệt đơn hàng";
+}
+<br />
+<h2 class="text-info">Duyệt đơn hàng</h2>
+<form method="post" asp-action="Duyet">
+
+    <input type="hidden" asp-for="DonHangs.MaDH" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="p-4 border rounded row">
+        <div class="col-5">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="DonHangs.MaDH"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="DonHangs.MaDH" readonly class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="DonHangs.KhachHang.TenKH"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="DonHangs.KhachHang.TenKH" readonly class="form-control" />
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-5">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="DonHangs.TongGia"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" asp-for="DonHangs.TongGia" readonly class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="DonHangs.NgayLapDH"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="DonHangs.NgayLapDH" readonly class="form-control" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <h2>Chi tiết</h2>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    Mã điện thoại
+                </th>
+                <th>
+                    Tên điện thoại
+                </th>
+                <th>
+                    Màu
+                </th>
+                <th>
+                    Ram-Rom
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Giá gốc
+                </th>
+                <th>
+                    Giảm giá
+                </th>
+                <th>
+                    Đơn giá
+                </th>
+                <th>
+                    Tổng giá
+                </th>
+            </tr>
+            @foreach (var item in Model.ChiTietDonHangs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.MaDT)
+                    </td>
+                    <td>
+                        <a class="nav-link" asp-area="Admin" asp-controller="DienThoais" asp-action="Index" asp-route-searchName="@item.DienThoai.ModelDienThoai.TenModel">@item.DienThoai.ModelDienThoai.TenModel</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DienThoai.Mau)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DienThoai.ModelDienThoai.Ram)-@Html.DisplayFor(m => item.DienThoai.ModelDienThoai.Rom)
+                    </td>
+                    <td>
+                        @if (Model.DonHangs.TrangThai == "Chưa duyệt")
+                        {
+                            <input class="form-control" type="number" required max="@item.SoLuong" min="0" value="@item.SoLuong" name="@item.MaDT.ToString()" style="width:80px;" />
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(m => item.SoLuong)
+                        }
+                    </td>
+                    <td>
+                        <label class="form-text vnd">@item.DonGia</label>
+                    </td>
+                    <td>
+                        <label class="form-text vnd">@item.GiamGia</label>
+                    </td>
+                    <td>
+                        <label class="form-text vnd">@(item.DonGia - item.GiamGia)</label>
+                    </td>
+                    <td>
+                        <label class="form-text vnd">@item.TongGia</label>
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        <div class="form-group">
+            @if (Model.DonHangs.TrangThai == "Chưa duyệt")
+            {
+                <input type="submit" class="btn btn-primary" asp-route-MaDH="@Model.DonHangs.MaDH" value="Duyệt" />
+            }
+            else if (Model.DonHangs.TrangThai == "Đã duyệt")
+            {
+                <h5 class="text-success">Đã duyệt</h5>
+            }
+            else if (Model.DonHangs.TrangThai == "Đã hủy")
+            {
+                <h5 class="text-danger">Đã hủy</h5>
+            }
+            <a asp-action="Index" class="btn btn-success">Trở về</a>
+        </div>
+    </div>
+</form>
+<form method="post">
+    <input type="hidden" asp-for="DonHangs.MaDH" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @if (Model.DonHangs.TrangThai == "Chưa duyệt")
+    {
+        <input asp-action="HuyDonHang" type="submit" class="btn btn-danger" asp-route-MaDH="@Model.DonHangs.MaDH" value="Hủy đơn hàng" />
+    }
+</form>

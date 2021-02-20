@@ -1,0 +1,89 @@
+﻿@model CuaHangDienThoai.Models.TaiKhoan
+@{
+    ViewData["Title"] = "EditTaiKhoan";
+}
+<br />
+<h2 style="text-align:center" class="text-info">Chỉnh sửa mật khẩu</h2>
+<form method="post" onsubmit="return validateForm()" asp-action="EditTaiKhoan" >
+    <div class="col-md-4 border rounded">
+        <input hidden asp-for="TenTK" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="TenTK"></label>
+            <input asp-for="TenTK" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="MatKhau"></label>
+            <input type="password" id="enter_pass" required class="form-control" />
+        </div>
+        <input id="old_pass" hidden class="form-control" />
+        <div class="form-group">
+            <label>Mật khẩu mới</label>
+            <input type="password" id="pass" required class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Nhập lại mật khẩu mới</label>
+            <input type="password" id="repeat_pass" required class="form-control" />
+        </div>
+        <br />
+        <div class="form-group" style="text-align:left">
+            <input type="submit" class="btn btn-primary" asp-route-TenTK="@Model.TenTK" value="Lưu" />
+            <a asp-action="Index" class="btn btn-success">Trở về trang danh sách khách hàng</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script type="text/javascript">
+        function validateForm() {
+            var enter_pass = document.getElementById("enter-pass").value;
+            var old_pass = document.getElementById("old-pass").value;
+            var pass = document.getElementById("pass").value;
+            var repeat_pass = document.getElementById("repeat-pass").value;
+            if (enter_pass == " ") {
+                alert("Vui lòng nhập mật khẩu");
+                return false;
+            }
+            if (old_pass.length != enter_pass.length) {
+                alert("Sai mật khẩu");
+                return false;
+            }
+            for (var i = 0; i < old_pass.length; i++) {
+                if (old_pass[i] != enter_pass[i]) {
+                    alert("Sai mật khẩu");
+                    return false;
+                }
+            }
+
+
+
+            for (var i = 0; i < pass.length; i++) {
+                if (pass[i] != repeat_pass[i]) {
+                    alert("Mật khẩu mới không khớp");
+                    return false;
+                }
+            }
+            if (pass == " " || repeat_pass == " ") {
+                alert("Vui lòng điền đầy đủ thông tin");
+                return false;
+            }
+            if (pass.length != repeat_pass.length) {
+                alert("Mật khẩu mới không khớp");
+                return false;
+            }
+            for (var i = 0; i < pass.length; i++) {
+                if (pass[i] != repeat_pass[i]) {
+                    alert("Mật khẩu mới không khớp");
+                    return false;
+                }
+                if (pass[i] == " " || repeat_pass[i] == " ") {
+                    alert("Mật khẩu không được có khoảng trắng");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

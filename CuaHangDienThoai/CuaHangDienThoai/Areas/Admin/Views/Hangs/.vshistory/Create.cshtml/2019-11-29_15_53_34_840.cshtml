@@ -1,0 +1,39 @@
+﻿@model CuaHangDienThoai.Models.Hang
+@{
+    ViewData["Title"] = "Create";
+}
+<br />
+<h2 class="text-info">Thêm mới hãng</h2>
+<form method="post" asp-action="Create">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TenHang"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="TenHang" class="form-control" />
+            </div>
+            <span asp-validation-for="TenHang" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TrangThai"></label>
+            </div>
+            <div class="col-5">
+                <input type="checkbox" asp-for="TrangThai" class="form-control" />
+            </div>
+
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Create" />
+            <a asp-action="Index" class="btn btn-success">Trở về danh sách hãng</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

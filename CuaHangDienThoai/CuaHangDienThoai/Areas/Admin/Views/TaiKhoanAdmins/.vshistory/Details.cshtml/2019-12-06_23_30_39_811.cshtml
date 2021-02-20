@@ -1,0 +1,62 @@
+﻿@model CuaHangDienThoai.Models.TaiKhoanAdmin
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 class="text-info">Chi tiết tài khoản Admin</h2>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="p-4 rounded row">
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="User"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="User" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Pass"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Pass" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="PhoneNumber"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="PhoneNumber" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Role"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Role" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="TrangThai"></label>
+                </div>
+                <div class="col-8">
+                    <input type="checkbox" readonly asp-for="TrangThai" />
+                </div>
+
+            </div>
+            <br />
+            <div class="form-group">
+                <a asp-action="Edit" asp-route-id="@Model.User" class="btn btn-danger" style="margin-left:20px">Edit</a>
+                <a asp-action="Index" class="btn btn-success">Back to list</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-3"></div>
+</div>

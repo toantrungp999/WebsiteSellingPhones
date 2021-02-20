@@ -1,0 +1,85 @@
+﻿@model CuaHangDienThoai.Models.View.DienThoaisViewModel
+@{
+    ViewData["Title"] = "Xóa điện thoại";
+}
+<br />
+<h2 class="text-info">Xóa điện thoại</h2>
+
+<form method="post">
+    <div class="p-4 rounded row">
+        <input hidden asp-for="DienThoais.MaDT" />
+        <div class="col-7">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <label asp-for="@Model.DienThoais.ModelDienThoai.TenModel"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="DienThoais.ModelDienThoai.TenModel" readonly class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <label asp-for="DienThoais.Mau"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="DienThoais.Mau" readonly class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <label asp-for="DienThoais.Gia"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" asp-for="DienThoais.Gia" readonly class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <label asp-for="DienThoais.GiamGia"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" asp-for="DienThoais.GiamGia" readonly class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-1"></div>
+                    <div class="col-3">
+                        <label asp-for="DienThoais.SoLuong"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" asp-for="DienThoais.SoLuong" readonly class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-4">
+            <img src="@Model.DienThoais.Hinh" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
+        </div>
+        <br />
+    </div>
+    <div class="p-4 rounded row">
+        <div class="col-1"></div>
+        <div class="col-11">
+            <input type="submit" class="btn btn-danger" value="Xóa điện thoại" />
+            <a asp-action="Index" class="btn btn-success" style="margin-left:20px">Back to List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

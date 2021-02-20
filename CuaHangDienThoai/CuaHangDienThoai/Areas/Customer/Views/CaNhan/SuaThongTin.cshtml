@@ -1,0 +1,85 @@
+﻿@model CuaHangDienThoai.Models.KhachHang
+@{
+    ViewData["Title"] = "Sửa thông tin";
+}
+
+@if (TempData["SuaThongTin"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["SuaThongTin"]</strong>
+    </div>
+    TempData.Remove("SuaThongTin");
+}
+
+<h2 class="text-info" style="padding-left: 400px">Sửa thông tin</h2>
+<form method="post">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-5">
+            <div class="p-4 border rounded">
+                <input asp-for="@Model.MaKH" style="display:none;" />
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.TenKH"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="@Model.TenKH" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="@Model.TenKH" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.GioiTinh"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="radio" asp-for="@Model.GioiTinh" value="Nam" required />Nam
+                        <input type="radio" asp-for="@Model.GioiTinh" value="Nư" required />Nữ
+                        <input type="radio" asp-for="@Model.GioiTinh" value="Khác" required />Khác
+                    </div>
+                    <span asp-validation-for="@Model.GioiTinh" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.SoDienThoai"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="@Model.SoDienThoai" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="@Model.SoDienThoai" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.DiaChi"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="@Model.DiaChi" class="form-control" required style="resize:none;"></textarea>
+                    </div>
+                    <span asp-validation-for="@Model.DiaChi" class="text-danger"></span>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                   <label class="form-text">Xác nhận mật khẩu</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="@Model.TaiKhoan.MatKhau"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" asp-for="@Model.TaiKhoan.MatKhau" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="@Model.TaiKhoan.MatKhau" class="text-danger"></span>
+                </div>
+
+                <div class="form-group d-flex justify-content-center">
+                    <input class="btn btn-success" type="submit" value="Lưu thay đổi" asp-action="SuaThongTin" />
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <a class="btn btn-primary" asp-action="ThongTin">Trở về</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+

@@ -1,0 +1,112 @@
+﻿@model CuaHangDienThoai.Models.View.GioHangViewModel
+@using CuaHangDienThoai.Models.View
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+@if (TempData["GioHang"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["GioHang"]</strong>
+    </div>
+    TempData.Remove("GioHang");
+}
+<div class="form-group d-flex justify-content-center">
+    <h3 class="text-info">Giỏ hàng</h3>
+</div>
+<form method="post">
+    <div class="container border border-secondary rounded">
+        <div class="row">
+            <div class="col-9" style="border-right: 1px solid #bbb9b9;">
+                <table class="table table-striped">
+                    <tr class="table-info">
+                        <th>
+                        </th>
+                        <th>
+                            <label>Tên</label>
+                        </th>
+                        <th>
+                            <label>Màu</label>
+                        </th>
+                        <th>
+                            <label>Giá</label>
+                        </th>
+                        <th>
+                            <label>Số Lương</label>
+                        </th>
+                        <th>
+                            <label> Kho</label>
+                        </th>
+                        <th>
+                            <label>Trạng Thái</label>
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                    @for (int i = 0; i < Model.DanhSachGH.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-action="ChiTiet" asp-controller="Home" asp-route-MaModel="@Model.DanhSachGH[i].DienThoai.MaModel">
+                                    <img src="@Model.DanhSachGH[i].DienThoai.Hinh" width="100" height="100" style="margin:auto; display:block; border-radius: 5px; border: 1px solid #bbb9b9" />
+                                </a>
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(c => Model.DanhSachGH[i].DienThoai.ModelDienThoai.TenModel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(c => Model.DanhSachGH[i].DienThoai.Mau)
+                            </td>
+                            <td style="text-align:center">
+                                <label><del class="vnd" style="font-size:14px">@Model.DanhSachGH[i].DienThoai.Gia</del><br /><strong class="text-danger vnd">@(@Model.DanhSachGH[i].DienThoai.Gia - @Model.DanhSachGH[i].DienThoai.GiamGia)</strong></label>
+                            </td>
+                            <td style="text-align:center">
+                                <input class="form-control" style="width:80px;" type="number" asp-for="@Model.DanhSachPost[i].SoLuong" min="1" />
+                            </td>
+                            <td>
+                                <label>@Model.DanhSachGH[i].DienThoai.SoLuong</label>
+                            </td>
+                            <td style="text-align:center">
+                                <input type="checkbox" asp-for="@Model.DanhSachPost[i].TrangThai" />
+                                <input asp-for="@Model.DanhSachPost[i].MaDT" style="display:none" />
+                            </td>
+                            <td style="text-align:center">
+                                <button type="submit" class="btn btn-danger" asp-action="XoaSanPham" asp-route-MaDT="@Model.DanhSachGH[i].MaDT">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="col-3" style="padding-left:30px">
+                <div class="col-12 form-text">
+                    <label> Tên khách hàng</label>
+                </div>
+                <div class="col-12">
+                    <input class="form-control" asp-for="@Model.KhachHang.TenKH" readonly>
+                </div>
+                <div class="col-12 form-text">
+                    <label> Số điện thoại</label>
+                </div>
+                <div class="col-12 form-text">
+                    <input class="form-control" asp-for="@Model.KhachHang.SoDienThoai" readonly />
+                </div>
+                <div class="col-12">
+                    <label> Địa chỉ</label>
+                </div>
+                <div class="col-12">
+                    <textarea class="form-control" asp-for="@Model.KhachHang.DiaChi" style="resize:none;" readonly></textarea>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group col-9 text-right pt-1">
+        <input type="submit" class="btn btn-danger" value="Đặt hàng" />
+    </div>
+</form>
+
+

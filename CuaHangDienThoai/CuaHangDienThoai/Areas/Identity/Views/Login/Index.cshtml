@@ -1,0 +1,29 @@
+﻿@model CuaHangDienThoai.Models.TaiKhoanAdmin
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+<div class="container">
+    <div class="login-form">
+        <div class="main-div">
+            <div class="form-heading text-info">Đăng nhập</div>
+            <form id="formLogin" asp-action="Index" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="User" type="text" class="form-control" id="userName" required
+                           placeholder="Tên đăng nhập">
+                    <span asp-validation-for="User" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="Pass" type="password" class="form-control" id="password" required
+                           placeholder="Mật khẩu">
+                    <span asp-validation-for="Pass" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                <br />
+                <a class="text-dark"asp-area="Identity" asp-controller="ForgotPassword" asp-action="Index">Quên mật khẩu</a>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,69 @@
+﻿@model CuaHangDienThoai.Models.View.DienThoaisViewModel
+@using CuaHangDienThoai.Extensions
+@{
+    ViewData["Title"] = "Details";
+}
+<br />
+<h2 class="text-info">Chi tiết điện thoại</h2>
+<div class="p-4 border rounded row">
+
+    <div class="col-7">
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ModelDienThoais"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="DienThoais.ModelDienThoai.TenModel" readonly class="form-control" />
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="DienThoais.Mau"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="DienThoais.Mau" readonly class="form-control" />
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="DienThoais.Gia"></label>
+            </div>
+            <div class="col-5">
+                <input type="number" asp-for="DienThoais.Gia" readonly class="form-control" />
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="DienThoais.GiamGia"></label>
+            </div>
+            <div class="col-5">
+                <input type="number" asp-for="DienThoais.GiamGia" readonly class="form-control" />
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="DienThoais.SoLuong"></label>
+            </div>
+            <div class="col-5">
+                <input type="number" asp-for="DienThoais.SoLuong" readonly class="form-control" />
+            </div>
+
+        </div>
+    </div>
+    <div class="col-1">
+    </div>
+    <div class="col-3">
+        <img src="@Model.DienThoais.Hinh" style="border-radius:5px; border:1px solid #bbb9b9; width:100%" />
+    </div>
+
+    <br />
+    <div class="form-group">
+        <a asp-action="Edit" class="btn btn-primary" asp-route-MaDT="@Model.DienThoais.MaDT">Edit</a>
+        <a asp-action="Index" class="btn btn-success">Trở về</a>
+    </div>
+</div>
+

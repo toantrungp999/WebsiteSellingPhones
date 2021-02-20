@@ -1,0 +1,54 @@
+﻿@model CuaHangDienThoai.Models.TaiKhoanAdmin
+@{
+    ViewData["Title"] = "Thông tin cá nhân";
+}
+<br />
+<h2 class="text-info">Thông tin cá nhân</h2>
+<div class="p-4 border rounded">
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="User"></label>
+        </div>
+        <div class="col-5">
+            <input asp-for="User" readonly class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-4">
+            <label asp-for="Name"></label>
+        </div>
+        <div class="col-8">
+            <input readonly asp-for="Name" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-4">
+            <label asp-for="PhoneNumber"></label>
+        </div>
+        <div class="col-8">
+            <input readonly asp-for="PhoneNumber" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-4">
+            <label asp-for="Role"></label>
+        </div>
+        <div class="col-8">
+            <input readonly asp-for="Role" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-4">
+            <label asp-for="TrangThai"></label>
+        </div>
+        <div class="col-8">
+            <input type="checkbox" readonly asp-for="TrangThai"/>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <a asp-action="Edit" asp-route-MaHang="@Model.User" class="btn btn-danger">Edit</a>
+        <a asp-action="Index" class="btn btn-success">Back to list</a>
+    </div>
+</div>
+

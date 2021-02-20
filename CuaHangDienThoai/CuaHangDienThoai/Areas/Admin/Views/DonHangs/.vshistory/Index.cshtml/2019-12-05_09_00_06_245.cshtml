@@ -1,0 +1,105 @@
+﻿@model CuaHangDienThoai.Models.View.DonHangsPaging
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2 class="text-info" style="text-align:center">Danh sách đơn hàng</h2>
+<br />
+<form method="get">
+    <div>
+        <div style="height:150px; background-color:aliceblue" class="container">
+            @* We will add search criteria *@
+            <div class="col-12">
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-2">
+                        Mã đơn hàng
+                    </div>
+                    <div class="col-3">
+                        @Html.Editor("searchMaDH", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-2">
+                        Tên khách hàng
+                    </div>
+                    <div class="col-3">
+                        @Html.Editor("searchTenKH", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                </div>
+
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" name="submit" value="Search" class="btn btn-primary form-control">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(m => m.DonHangs.FirstOrDefault().MaDH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.DonHangs.FirstOrDefault().KhachHang.TenKH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.DonHangs.FirstOrDefault().NgayLapDH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.DonHangs.FirstOrDefault().TongGia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.DonHangs.FirstOrDefault().TrangThai)
+                </th>
+
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.DonHangs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.MaDH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.KhachHang.TenKH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.NgayLapDH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.TongGia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.TrangThai)
+                    </td>
+                    <td style="width:150px">
+                        <div class="btn-group" role="group">
+                            <a type="button" class="btn btn-success" asp-action="Duyet" asp-route-MaDH="@item.MaDH">
+                                <i class="far fa-list-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+        <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+             page-class="btn border" page-class-normal="btn btn-default active"
+             page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+    </div>
+</form>

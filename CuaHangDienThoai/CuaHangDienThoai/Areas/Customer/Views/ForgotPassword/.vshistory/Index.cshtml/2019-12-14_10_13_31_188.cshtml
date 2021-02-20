@@ -1,0 +1,19 @@
+﻿@model CuaHangDienThoai.Models.View.ForgotPasswordViewModel
+@{
+    ViewData["Title"] = "Quên mật khẩu";
+}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="login-form col-4" style="margin-top:100px;">
+        <form asp-action="Index" method="post">
+            <h2 class="text-center text-info">Nhập Email để được cấp lại mật khẩu</h2>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Xác nhận" />
+        </form>
+        <p class="text-center"> Bạn chưa có tài khoản?<a asp-action="DangKy"> Đăng ký ngay</a></p>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model CuaHangDienThoai.Models.TaiKhoanAdmin
+
+@{
+    ViewData["Title"] = "Chỉnh sửa thông tin cá nhân";
+}
+
+<h1>Edit</h1>
+
+<h4 class="text-info">Quản lý trạng thái tài khoản Admin</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4 border rounded">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="User" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="User" class="control-label"></label>
+                <input asp-for="User" required class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" required class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" required class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" asp-route-User="@Model.User" value="Update" />
+                <a asp-action="EditPass" class="btn-secondary">Chỉnh sửa mật khẩu</a>
+                <a asp-action="Index" class="btn btn-success">Trở về</a>
+            </div>
+        </form>
+    </div>
+</div>
+

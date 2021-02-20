@@ -1,0 +1,109 @@
+﻿@model IEnumerable<CuaHangDienThoai.Models.ChiTietHoaDon>
+
+@{
+    ViewData["Title"] = "Danh sách IMEI";
+}
+    <form method="get">
+        <h2 class="text-info" style="text-align:center">Danh sách IMEI thuộc các hóa đơn</h2>
+        <div style="height:200px; background-color:aliceblue" class="container">
+            <div class="row" style="padding-top:10px;">
+                <label>Tìm kiếm</label>
+            </div>
+            <div class="col-12">
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-2">
+                        Mã hóa đơn
+                    </div>
+                    <div class="col-3">
+                        @Html.Editor("searchMaHD", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-2">
+                        Mã điện thoại
+                    </div>
+                    <div class="col-3">
+                        @Html.Editor("searchMaDT", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                </div>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-2">
+                        Mã IMEI
+                    </div>
+                    <div class="col-3">
+                        @Html.Editor("searchIMEI", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                </div>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" name="submit" value="Search" class="btn btn-primary form-control">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <table class="table">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(model => model.MaHD)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaDT)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SoLuong)
+                </th>
+                <th>
+                    IMEI
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                var IMEI = TempData["searchIMEI"];
+                <tr>
+                    <td>
+                        <a class="nav-link" asp-area="Admin" asp-controller="HoaDons" asp-action="Index" asp-route-MaHD="@item.MaHD">@Html.DisplayFor(modelItem => item.MaHD)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaDT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoLuong)
+                    </td>
+                    <td>
+                        @{int t = 0;}
+                        @foreach (var im in item.IMEI_DienThoais.Where(im => im.MaHD == item.MaHD))
+                        {
+                            <label class="form-group">@Html.DisplayFor(modelItem => im.IMEI)</label><br />
+                            t++;
+                        }
+                    </td>
+                    <td>
+                        @if (t < item.SoLuong)
+                        {
+                            <label class="text-danger">Bổ sung IMEI!</label>
+                            <br />
+                        }
+                        @{var id = item.MaHD.ToString() + item.MaDT.ToString();}
+                        <a asp-action="Edit" asp-route-id=@id>Edit</a>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </form>

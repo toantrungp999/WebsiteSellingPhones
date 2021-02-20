@@ -1,0 +1,72 @@
+﻿@model IEnumerable<CuaHangDienThoai.Models.ModelDienThoai>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2 class="text-info" style="text-align:center">Danh sách mẫu điện thoại</h2>
+<br />
+<a asp-action="Create" class="btn-btn-info"><i class="fas fa-plus"></i>&nbsp;Thêm mới mẫu điện thoại</a>
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.TenModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Hang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Ram)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.ManHinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Camera)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Chip)
+            </th>
+
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.TenModel)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Hang.TenHang)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Ram)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(m => item.ManHinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Camera)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(m => item.Chip)
+                </td>
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-MaModel="@item.MaModel">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a type="button" class="btn btn-success" asp-action="Details" asp-route-MaModel="@item.MaModel">
+                            <i class="far fa-list-alt"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

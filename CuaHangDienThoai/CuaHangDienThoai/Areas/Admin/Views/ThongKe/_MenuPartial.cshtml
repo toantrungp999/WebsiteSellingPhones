@@ -1,0 +1,74 @@
+﻿@model CuaHangDienThoai.Models.View.ThongKeViewModel
+@using CuaHangDienThoai.Models
+@using CuaHangDienThoai.Data
+@using CuaHangDienThoai.Extensions
+
+@if (TempData["ThongKe"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["ThongKe"]</strong>
+    </div>
+    TempData.Remove("ThongKe");
+}
+<form method="get" class="border rounded" oninput="checkTatCa()">
+    <div class="row pt-3">
+        <div class="col-1"></div>
+        <div>
+            <label class="form-text pr-1">Loại</label>
+        </div>
+        <div>
+            @Html.DropDownList("loaiThongKe", CuaHangDienThoai.Extensions.IEnumerableExtensions.ListThongKe(), "Chọn loại thống kê", new { @class = "form-control" })
+        </div>
+        <div class="col-1"></div>
+        <div>
+            <label class="form-text pr-1">Hãng</label>
+        </div>
+        <div>
+            @Html.DropDownList("hang", Model.DanhSachHang.ToSelectListHang(0), "Tất cả", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-1"></div>
+        <div>
+            <label class="form-text pr-1">Thời gian từ</label>
+        </div>
+        <div>
+            @Html.Editor("batDau", new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+        </div>
+        <div>
+            <label class="form-text pr-2 pl-2">đến</label>
+        </div>
+        <div>
+            @Html.Editor("ketThuc", new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+        </div>
+        <div class="pl-4">
+            @Html.CheckBox("tatCa", false, new { @class = "form-control" })
+        </div>
+        <div>
+            <label class="form-text mt-2 pl-1">Tất cả</label>
+        </div>
+    </div>
+    <div class="row pr-2 pb-2 pt-2">
+        <div class="col-1"></div>
+        <div class="col-2">
+            <button class="btn btn-primary form-control" type="submit" asp-action="Index">Thống Kê</button>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    function checkTatCa() {
+        var x = document.getElementById("tatCa").checked;
+        if (x == true) {
+            document.getElementById("batDau").readOnly = true;
+            document.getElementById("ketThuc").readOnly = true;
+        }
+        else {
+            document.getElementById("batDau").readOnly = false;
+            document.getElementById("ketThuc").readOnly = false;
+        }
+    }
+    window.onload = checkTatCa();
+</script>

@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Http
+@using CuaHangDienThoai.Common
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "_LoginPartial";
+}
+
+@if (HttpContextAccessor.HttpContext.Session.GetString(CommonAdmin.USER_SESSION) != null)
+{
+    <li class="nav-item"><a asp-area="Identity" class="nav-link" asp-controller="Logout" asp-action="Index">Logout</a></li>
+    <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bell fa-fw"></i>
+            <!-- Counter - Alerts -->
+            <span class="badge badge-danger badge-counter">3+</span>
+        </a>
+        <!-- Dropdown - Alerts -->
+        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+        </div>
+    </li>
+
+    <!-- Nav Item - Messages -->
+    <li class="nav-item dropdown no-arrow mx-1">
+        <div class="topbar-divider d-none d-sm-block"></div>
+        <!-- Nav Item - User Information -->
+    </li>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-collapse justify-content-end navbar-right">
+
+        <li class="nav-item"><a asp-area="Identity" class="nav-link" asp-controller="Login" asp-action="Index">Login</a></li>
+    </ul>
+}
+

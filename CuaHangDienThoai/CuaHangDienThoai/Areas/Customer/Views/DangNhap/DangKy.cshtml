@@ -1,0 +1,114 @@
+﻿@model CuaHangDienThoai.Models.View.DangKyViewModel
+@{
+    ViewData["Title"] = "Đăng kí";
+}
+
+
+<h2 class="text-info" style="padding-left: 400px">Đăng ký tài khoản</h2>
+<form method="post" enctype="multipart/form-data" oninput='confirmPass.setCustomValidity(elements["TaiKhoan.MatKhau"].value != confirmPass.value ? "Mật khẩu không khớp":"")'>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-5">
+            <div class="p-4 border rounded">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="KhachHang.TenKH"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="KhachHang.TenKH" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="KhachHang.TenKH" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="KhachHang.DiaChi"></label>
+                    </div>
+                    <div class="col-8">
+                        <textarea asp-for="KhachHang.DiaChi" class="form-control" required></textarea>
+                    </div>
+                    <span asp-validation-for="KhachHang.DiaChi" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="KhachHang.SoDienThoai"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" asp-for="KhachHang.SoDienThoai" class="form-control" required style="resize:none;" />
+                    </div>
+                    <span asp-validation-for="KhachHang.SoDienThoai" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="KhachHang.GioiTinh"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="KhachHang.GioiTinh" type="radio" value="Nam" required /> Nam <br />
+                        <input asp-for="KhachHang.GioiTinh" type="radio" value="Nu" required /> Nữ <br />
+                        <input asp-for="KhachHang.GioiTinh" type="radio" value="Khac" required /> Khác <br />
+                    </div>
+                </div>
+                @if (TempData["DangKyEmail"] != null)
+                {
+                    <div class="text-center form-group">
+                        <span class="text-center" style="color:red">@TempData["DangKyEmail"]</span>
+                    </div>
+                    TempData.Remove("DangKyEmail");
+                }
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="KhachHang.Email"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="KhachHang.Email" class="form-control" required type="email"/>
+                    </div>
+                    <span asp-validation-for="KhachHang.Email" class="text-danger"></span>
+                </div>
+                @if (TempData["DangKyTK"] != null)
+                {
+                    <div class="text-center form-group">
+                        <span class="text-center" style="color:red">@TempData["DangKyTK"]</span>
+                    </div>
+                    TempData.Remove("DangKyTK");
+                }
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="TaiKhoan.TenTK"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="TaiKhoan.TenTK" minlength="6" maxlength="20" class="form-control" required />
+                    </div>
+                    <span asp-validation-for="TaiKhoan.TenTK" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="TaiKhoan.MatKhau"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" asp-for="TaiKhoan.MatKhau" minlength="6" maxlength="20" class="form-control" name="TaiKhoan.MatKhau" required />
+                    </div>
+                
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label>Xác nhận</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" class="form-control" minlength="6" maxlength="20" required name="confirmPass" />
+                    </div>
+                    <span class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <input type="submit" class="btn btn-primary" value="Đăng ký" />
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <label>Đã có tài khoản?!<a asp-action="Index">Đăng nhập ngay</a></label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+

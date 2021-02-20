@@ -1,0 +1,69 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CuaHangDienThoai</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+</head>
+<body style="background-color:aliceblue;">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand ml-5" asp-action="Index" asp-controller="Home"><i class="fas fa-home"></i> Trang chủ</a>
+            <div class="collapse navbar-collapse">
+
+            </div>
+            <div>
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="p">
+            <br /> <br /> <br />
+            @RenderBody()
+        </main>
+    </div>
+    <script>
+        function ToVND(value) {
+            return value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        }
+        var x = document.getElementsByClassName("vnd");
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].innerHTML = ToVND(Number(x[i].textContent));
+        }
+    </script>
+    <script>
+        function A() {
+                 function ToVND(value) {
+            return value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        }
+        var x = document.getElementsByClassName("vnd");
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].innerHTML = ToVND(Number(x[i].textContent));
+        }
+        }
+   
+    </script>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - CuaHangDienThoai
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery-ui.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

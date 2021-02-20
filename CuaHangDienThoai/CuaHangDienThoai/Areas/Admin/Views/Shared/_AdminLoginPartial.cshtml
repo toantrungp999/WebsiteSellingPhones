@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Http
+@using CuaHangDienThoai.Common
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "_LoginPartial";
+}
+
+@if (HttpContextAccessor.HttpContext.Session.GetString(CommonAdmin.USER_SESSION) != null)
+{
+    <li class="nav-item"><a asp-area="Admin" class="nav-link" asp-controller="Information" asp-action="Index">Thông tin cá nhân</a></li>
+    <li class="nav-item"><a asp-area="Identity" class="nav-link" asp-controller="Logout" asp-action="Index">Đăng xuất</a></li>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-collapse justify-content-end navbar-right">
+
+        <li class="nav-item"><a asp-area="Identity" class="nav-link" asp-controller="Login" asp-action="Index">Đăng nhập</a></li>
+    </ul>
+}
+

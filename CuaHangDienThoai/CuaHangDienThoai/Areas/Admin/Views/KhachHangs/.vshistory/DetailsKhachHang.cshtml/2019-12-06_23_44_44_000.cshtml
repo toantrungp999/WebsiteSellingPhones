@@ -1,0 +1,60 @@
+﻿@model CuaHangDienThoai.Models.KhachHang
+@{
+    ViewData["Title"] = "Chi tiết khách hàng";
+}
+<br />
+<h2 style="text-align:center" class="text-info">Chi tiết khách hàng</h2>
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 border rounded row" style="text-align:center">
+        <input hidden asp-for="MaKH" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-9">
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="TenKH"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="TenKH" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="DiaChi"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="DiaChi" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="SoDienThoai"></label>
+                </div>
+                <div class="col-5">
+                    <input type="number" asp-for="SoDienThoai" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="GioiTinh"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="GioiTinh" readonly class="form-control" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <a asp-action="EditTaiKhoan" class="btn btn-primary" asp-route-MaKH="@Model.MaKH">Chỉnh sửa tài khoản</a>
+        <a asp-action="Index" class="btn btn-success">Trở về</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+

@@ -1,0 +1,131 @@
+﻿@model CuaHangDienThoai.Models.View.ThongKeViewModel
+@{
+    ViewData["Title"] = "Thống kê";
+}
+<div>
+    <partial name="_MenuPartial" />
+</div>
+<div class="col-12">
+    <canvas id="chart" height="200" width="400"></canvas>
+    <div class="text-center">
+        <h4 class="form-text text-info">@Model.TenThongKe</h4>
+    </div>
+    <div class="col-12 text-center">
+        <table class="table table-striped border rounded">
+            <tr>
+                <th><label class="form-text text-info">Dòng điện thoại</label></th>
+                <th><lable class="form-text text-info">Doanh số bán</lable></th>
+                <th><label class="form-text text-info">Tổng doanh thu</label></th>
+            </tr>
+            @for (int i = 0; i < Model.DanhSachDoanhSoVaDanhThuDT.Count; i++)
+            {
+                <tr>
+                    <td>@Model.DanhSachDoanhSoVaDanhThuDT[i].ModelDT.TenModel</td>
+                    <td>@Model.DanhSachDoanhSoVaDanhThuDT[i].SoLuong</td>
+                    <td class="vnd">@Model.DanhSachDoanhSoVaDanhThuDT[i].DoanhThu</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById('chart');
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+
+    data: {
+        labels: [],
+        datasets: [{
+            data: [],
+            backgroundColor: 'rgba(255, 99, 132, 0.9)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+            label: 'Doanh số bán',
+
+            // This binds the dataset to the left y axis
+            yAxisID: 'A'
+        }, {
+            data: [],
+            label: 'Right dataset',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 0.5)',
+            borderWidth: 1,
+            label: 'Doanh thu',
+            // This binds the dataset to the right y axis
+            yAxisID: 'B'
+        }]
+
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                id: 'A',
+                type: 'linear',
+                position: 'left',
+                ticks: {
+                    beginAtZero: true
+                },
+                scaleLabel: {
+            display: true,
+            labelString: 'Số lượng'
+          }
+            }, {
+                id: 'B',
+                type: 'linear',
+                position: 'right',
+                ticks: {
+                    beginAtZero: true,
+                           callback: function(value, index, values) {
+                            return ToVND_Head(value);
+                        }
+                    },
+                scaleLabel: {
+            display: true,
+            labelString: 'Doanh thu (VNĐ)'
+          }
+            }]
+        }
+    }
+    });
+
+
+    // myChart.data.labels.push("123");
+    //myChart.data.datasets[0].data.push(35);
+    //myChart.data.datasets[1].data.push(0.5);
+    //myChart.data.labels.push("456");
+    //myChart.data.datasets[0].data.push(79);
+    //myChart.data.datasets[1].data.push(0.2);
+
+
+
+    @if(Model.DanhSachDoanhSoVaDanhThuDT!=null)
+    {
+        if(Model.DanhSachDoanhSoVaDanhThuDT.Count >8)
+        {
+            foreach(var item in Model.DanhSachDoanhSoVaDanhThuDT.Take(8))
+            {
+                 <text>myChart.data.labels.push("@item.ModelDT.TenModel");</text>
+                 <text>myChart.data.datasets[0].data.push("@item.SoLuong");</text>
+                 <text>myChart.data.datasets[1].data.push("@item.DoanhThu");</text>
+
+            }
+        }
+        else if(Model.DanhSachDoanhSoVaDanhThuDT.Count<=8)
+        {
+            foreach(var item in Model.DanhSachDoanhSoVaDanhThuDT)
+            {
+                <text>myChart.data.labels.push("@item.ModelDT.TenModel");</text>
+                <text>myChart.data.datasets[0].data.push("@item.SoLuong");</text>
+                <text>myChart.data.datasets[1].data.push("@item.DoanhThu");</text>
+            }
+        }
+    }
+     myChart.update();
+
+
+
+</script>
+

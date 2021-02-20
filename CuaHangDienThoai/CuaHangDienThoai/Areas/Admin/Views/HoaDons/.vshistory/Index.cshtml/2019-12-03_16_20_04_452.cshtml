@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CuaHangDienThoai.Models.HoaDon>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2 class="text-info" style="text-align:center">Danh sách hóa đơn</h2>
+<br />
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.MaHD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.MaDH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.KhachHang.TenKH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.NgayLapHD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.TongThanhToan)
+            </th>
+
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.MaDH)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.KhachHang.TenKH)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.MaDH)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.NgayLapHD)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.TongThanhToan)
+                </td>
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a type="button" class="btn btn-success" asp-action="Duyet" asp-route-MaDH="@item.MaDH">
+                            <i class="far fa-list-alt"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

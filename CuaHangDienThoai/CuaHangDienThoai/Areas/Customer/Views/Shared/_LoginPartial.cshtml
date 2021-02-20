@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http
+@using CuaHangDienThoai.Extensions
+@using CuaHangDienThoai.Models
+@using CuaHangDienThoai.Areas.Customer.Identity
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@if (@HttpContextAccessor.HttpContext.Session.GetObject<DangNhap>("DangNhap") != null)
+{
+    <ul>
+        <li class="nav-item" style="padding-right:20px">
+            <a class="nav-link" asp-area="" asp-controller="MuaHang" asp-action="GioHang"><i class="fas fa-shopping-cart"></i>(<span id="giohang"></span>)</a>
+        </li>
+        <li class="nav-item" style="padding-right:20px">
+            <a class="nav-link" asp-area="" asp-controller="MuaHang" asp-action="DonHang"> Đơn hàng </a>
+        </li>
+        <li class="nav-item" style="padding-right:20px">
+            <a class="nav-link" asp-area="" asp-controller="MuaHang" asp-action="HoaDon"> Hóa đơn </a>
+        </li>
+        <li class="nav-item" style="padding-right:20px">
+            <a class="nav-link" asp-area="" asp-controller="CaNhan" asp-action="ThongTin">Xin chào: @(HttpContextAccessor.HttpContext.Session.GetObject<DangNhap>("DangNhap").TenKH)</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="DangNhap" asp-action="DangXuat"> Đăng xuất </a>
+        </li>
+    </ul>
+
+}
+else
+{
+    <ul class="nav navbar-nav navbar-collapse justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="DangNhap" asp-action="Index"> Đăng nhập </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="DangNhap" asp-action="DangKy"> Đăng ký </a>
+        </li>
+    </ul>
+}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+                    $.ajax({
+        url: '@Url.Action("SoLuongGioHang","Home", new { Area = "Customer" })',
+        dataType: "json",
+        type: "Get",
+        contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                $("#giohang").html(data);
+            },
+        })
+        })
+    </script>
+
+

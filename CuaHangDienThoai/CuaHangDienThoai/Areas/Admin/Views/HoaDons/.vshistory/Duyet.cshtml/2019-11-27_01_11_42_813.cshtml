@@ -1,0 +1,132 @@
+﻿@model CuaHangDienThoai.Models.View.HoaDonViewChiTietHoaDon
+
+@{
+    ViewData["Title"] = "Duyện hóa đơn";
+}
+<br />
+<h2 class="text-info">Duyệt hóa đơn</h2>
+<form method="post" asp-action="DuyetHoaDon">
+    <input type="hidden" asp-for="HoaDons.MaHD" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="p-4 border rounded row">
+        <div class="col-5">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="HoaDons.MaHD"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="HoaDons.MaHD" readonly class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="HoaDons.KhachHang.TenKH"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="HoaDons.KhachHang.TenKH" readonly class="form-control" />
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-5">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="HoaDons.TongThanhToan"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" asp-for="HoaDons.TongThanhToan" readonly class="form-control" />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="HoaDons.NgayLapHD"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="HoaDons.NgayLapHD" readonly />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <h2>Chi tiết</h2>
+            <table class="table table-striped border">
+                <tr class="table-info">
+                    <th>
+                        Mã điện thoại
+                    </th>
+                    <th>
+                        Tên mẫu điện thoại
+                    </th>
+                    <th>
+                        Màu
+                    </th>
+                    <th>
+                        Ram-Rom
+                    </th>
+                    <th>
+                        Số lượng
+                    </th>
+                    <th>
+                        Giá
+                    </th>
+                    <th>
+                        Tổng giá
+                    </th>
+                    <td>
+                        Nhập IMEI
+                    </td>
+                </tr>
+                @foreach (var item in Model.ChiTietHoaDons)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.MaDT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.DienThoai.ModelDienThoai.TenModel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.DienThoai.Mau)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.DienThoai.ModelDienThoai.Ram)-@Html.DisplayFor(m => item.DienThoai.ModelDienThoai.Rom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.SoLuong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.DienThoai.Gia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.TongGia)
+                        </td>
+                        <td>
+                            @for (int i = 0; i < item.SoLuong; i++)
+                            {
+                                var name = item.MaDT.ToString() + i.ToString();
+                                <input name=@name class="form-group" required />
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+           
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" asp-route-MaHD="@Model.HoaDons.MaHD" value="Xác nhận" />
+            <a asp-action="Index" class="btn btn-success">Trở về</a>
+        </div>
+    </div>
+</form>
+

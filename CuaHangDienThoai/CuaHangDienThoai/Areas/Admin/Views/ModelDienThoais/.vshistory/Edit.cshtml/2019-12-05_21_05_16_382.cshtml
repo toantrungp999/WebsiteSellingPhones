@@ -1,0 +1,139 @@
+﻿@model CuaHangDienThoai.Models.View.ModelDienThoaiViewModel
+@using CuaHangDienThoai.Extensions
+@{
+    ViewData["Title"] = "Edit";
+}
+<br />
+<h2 class="text-info">Chỉnh sửa mẫu điện thoại</h2>
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 border rounded row">
+        <input hidden asp-for="ModelDienThoais.MaModel" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-7">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.TenModel"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ModelDienThoais.TenModel" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ModelDienThoais.TenModel" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Hangs"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="@Model.ModelDienThoais.MaHang" asp-items="Model.Hangs.ToSelectListHang(Model.ModelDienThoais.MaHang)" class="form-control"></select>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.Ram"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ModelDienThoais.Ram" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ModelDienThoais.Ram" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.Rom"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ModelDienThoais.Rom" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ModelDienThoais.Rom" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.ManHinh"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ModelDienThoais.ManHinh" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ModelDienThoais.ManHinh" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.Camera"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ModelDienThoais.Camera" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ModelDienThoais.Camera" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.Pin"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ModelDienThoais.Pin" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ModelDienThoais.Pin" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.Chip"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ModelDienThoais.Chip" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ModelDienThoais.Chip" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.NgayRaMat"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ModelDienThoais.NgayRaMat" id="datepicker" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ModelDienThoais.NgayRaMat" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.Hinh"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ModelDienThoais.TrangThai"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="checkbox" asp-for="ModelDienThoais.TrangThai"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1">
+
+        </div>
+        <div class="col-4">
+            <img src="@Model.ModelDienThoais.Hinh" width="100%" style="border-radius:5px ; border=1px solid #bbb9b9;" />
+        </div>
+    </div>
+   
+
+    <br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Update" />
+        <a asp-action="Index" class="btn btn-success">Trở về</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: +1, maxDate: "+3M"
+            });
+        });
+    </script>
+}
+

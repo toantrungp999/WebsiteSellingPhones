@@ -1,0 +1,68 @@
+﻿@model CuaHangDienThoai.Models.View.ResetPasswordViewModel
+@{
+    ViewData["Title"] = "Chỉnh sửa mật khẩu";
+}
+@if (TempData["Reset"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>@TempData["Reset"]</strong>
+    </div>
+    TempData.Remove("Reset");
+}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="login-form col-4" style="margin-top:100px;">
+        <form id="formLogin" asp-action="ResetPass" method="post">
+            <div class="text-info text-center">Nhập Email để được cấp lại mật khẩu</div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden asp-for="Email" />
+            <div class="form-group">
+
+                <input asp-for="Code" class="form-control" placeholder="Mã xác nhận" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input id="Password" asp-for="Password" class="form-control" placeholder="Mật khẩu" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <input id="ConfirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" />
+            </div>
+            <button type="submit" class="btn btn-primary">Reset</button>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        function validateForm() {
+
+            var pass = document.getElementById("Password").value;
+            var repeat_pass = document.getElementById("ConfirmPassword").value;
+            for (var i = 0; i < pass.length; i++) {
+                if (pass[i] != repeat_pass[i]) {
+                    alert("Mật khẩu mới không khớp");
+                    return false;
+                }
+            }
+            if (pass.length != repeat_pass.length) {
+                alert("Mật khẩu mới không khớp");
+                return false;
+            }
+            for (var i = 0; i < pass.length; i++) {
+                if (pass[i] != repeat_pass[i]) {
+                    alert("Mật khẩu mới không khớp");
+                    return false;
+                }
+                if (pass[i] == " " || repeat_pass[i] == " ") {
+                    alert("Mật khẩu không được có khoảng trắng");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
